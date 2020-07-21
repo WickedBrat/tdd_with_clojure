@@ -2,7 +2,7 @@
   (:require [clojure.string :as strings])
   (:gen-class))
 
-(defn square
+(defn generate_square
   [side]
   (def square (vec (repeat side (vec (repeat side " ")))))
   
@@ -15,7 +15,13 @@
       (def square (assoc square row (assoc (get square row) col "#")))
     )
   )
-  (doseq [row (range 0 (inc (- side 1)))]
-    (println (strings/join "" (get square row)))
-  )
+  square
+)
+
+(defn square
+  [side_width]
+  (def square (vec (generate_square side_width)))
+  
+  (doseq [row (range 0 (inc (- side_width 1)))]
+    (println (strings/join "" (get square row))))
 )
