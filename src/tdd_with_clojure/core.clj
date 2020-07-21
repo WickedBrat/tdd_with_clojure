@@ -25,4 +25,3 @@
   [& args]
   (print_square 5)
 )
-
