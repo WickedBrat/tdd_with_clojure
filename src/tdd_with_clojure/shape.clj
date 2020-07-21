@@ -20,8 +20,12 @@
 
 (defn square
   [side_width]
-  (def square (vec (generate_square side_width)))
-  
-  (doseq [row (range 0 (inc (- side_width 1)))]
-    (println (strings/join "" (get square row))))
+  (try
+    ((def square (vec (generate_square side_width)))
+
+     (doseq [row (range 0 (inc (- side_width 1)))]
+       (println (strings/join "" (get square row))))
+    )
+    (catch Exception e (println "caught exception: " (.getMessage e)))
+  )
 )

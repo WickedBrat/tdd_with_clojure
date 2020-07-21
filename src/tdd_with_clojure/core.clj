@@ -5,5 +5,5 @@
 
 (defn -main
   [& args]
-  (print_shapes/square 5)
+  (print_shapes/square "5")
 )
