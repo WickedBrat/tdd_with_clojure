@@ -5,5 +5,6 @@
 
 (defn -main
   [& args]
-  (print_shapes/square "5")
+  (let [user_input (read-line)]
+    (print_shapes/render user_input))
 )
