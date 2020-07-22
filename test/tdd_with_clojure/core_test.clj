@@ -4,17 +4,17 @@
 
 (deftest test-square
   (testing "Matches correct generation of vectors for square of 5 units"
-    (def square (vec (tdd-with-clojure.shape/generate_square 5)))
-    (is (= (get square 0) ["#" "#" "#" "#" "#"]))
-    (is (= (get square 1) ["#" " " " " " " "#"]))
-    (is (= (get square 2) ["#" " " " " " " "#"]))
-    (is (= (get square 3) ["#" " " " " " " "#"]))
-    (is (= (get square 4) ["#" "#" "#" "#" "#"]))))
+    (def square_array (vec (tdd-with-clojure.shape/square 5)))
+    (is (= (get square_array 0) ["#" "#" "#" "#" "#"]))
+    (is (= (get square_array 1) ["#" " " " " " " "#"]))
+    (is (= (get square_array 2) ["#" " " " " " " "#"]))
+    (is (= (get square_array 3) ["#" " " " " " " "#"]))
+    (is (= (get square_array 4) ["#" "#" "#" "#" "#"]))))
 
 
 (deftest test-diamond
   (testing "Matches correct generation of vectors for diamond of 3 units"
-    (def diamond (vec (tdd-with-clojure.shape/generate_diamond 3)))
-    (is (= (get diamond 0) [" " "#" " "]))
-    (is (= (get diamond 1) ["#" " " "#"]))
-    (is (= (get diamond 2) [" " "#" " "]))))
+    (def diamond_array (vec (tdd-with-clojure.shape/diamond 3)))
+    (is (= (get diamond_array 0) [" " "#" " "]))
+    (is (= (get diamond_array 1) ["#" " " "#"]))
+    (is (= (get diamond_array 2) [" " "#" " "]))))
