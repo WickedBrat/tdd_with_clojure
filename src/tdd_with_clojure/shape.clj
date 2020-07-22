@@ -17,6 +17,7 @@
     )
   square_array
   )
+
 (defn diamond
 		[height]
 		(def width (+ (* 2 (quot height 2)) 1))
@@ -40,8 +41,20 @@
   diamond_array
 )
 
-
-
+(defn triangle
+  [side]
+  (def triangle_array (vec (repeat side (vec (repeat side " ")))))
+  
+  (doseq [row (range 0 (inc (- side 1)))
+          col (range 0 (inc (- side 1)))]
+    (if (or (= row col)
+            (= row (- side 1))
+            (= col 0))
+      (def triangle_array (assoc triangle_array row (assoc (get triangle_array row) col "#")))
+      )
+    )
+  triangle_array
+  )
 
 (defn render
 			[final_array]

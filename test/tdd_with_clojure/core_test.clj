@@ -22,7 +22,16 @@
 (deftest test-triangle
   (testing "Matches correct generation of vectors for triangle of 4 units"
     (def triangle_array (vec (tdd-with-clojure.shape/triangle 4)))
-    (is (= (get diamond_array 0) ["#" " " " " " "]))
-    (is (= (get diamond_array 1) ["#" "#" " " " "]))
-    (is (= (get diamond_array 2) ["#" " " "#" " "]))
-    (is (= (get diamond_array 2) ["#" "#" "#" "#"]))))
+    (is (= (get triangle_array 0) ["#" " " " " " "]))
+    (is (= (get triangle_array 1) ["#" "#" " " " "]))
+    (is (= (get triangle_array 2) ["#" " " "#" " "]))
+    (is (= (get triangle_array 3) ["#" "#" "#" "#"]))))
+
+(deftest test-combine
+  (testing "Matches correct generation of vectors for combination of 2 shapes"
+    (def triangle_array (vec (tdd-with-clojure.shape/combine "square 5 square 3")))
+    (is (= (get triangle_array 0) ["#" "#" "#" "#" "#"]))
+    (is (= (get triangle_array 1) ["#" " " "#" " " "#"]))
+    (is (= (get triangle_array 2) ["#" "#" "#" " " "#"]))
+    (is (= (get triangle_array 3) ["#" " " " " " " "#"]))
+    (is (= (get triangle_array 4) ["#" "#" "#" "#" "#"]))))
