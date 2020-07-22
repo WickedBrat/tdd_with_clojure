@@ -29,9 +29,9 @@
 
 (deftest test-combine
   (testing "Matches correct generation of vectors for combination of 2 shapes"
-    (def triangle_array (vec (tdd-with-clojure.shape/combine "square 5 square 3")))
-    (is (= (get triangle_array 0) ["#" "#" "#" "#" "#"]))
-    (is (= (get triangle_array 1) ["#" " " "#" " " "#"]))
-    (is (= (get triangle_array 2) ["#" "#" "#" " " "#"]))
-    (is (= (get triangle_array 3) ["#" " " " " " " "#"]))
-    (is (= (get triangle_array 4) ["#" "#" "#" "#" "#"]))))
+    (def combine_array (vec (tdd-with-clojure.shape/combine "square 5 square 3")))
+    (is (= (get combine_array 0) ["#" "#" "#" "#" "#"]))
+    (is (= (get combine_array 1) ["#" " " "#" " " "#"]))
+    (is (= (get combine_array 2) ["#" "#" "#" " " "#"]))
+    (is (= (get combine_array 3) ["#" " " " " " " "#"]))
+    (is (= (get combine_array 4) ["#" "#" "#" "#" "#"]))))
