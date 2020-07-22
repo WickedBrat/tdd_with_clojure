@@ -56,6 +56,26 @@
   triangle_array
   )
 
+(defn combine
+		[& args]
+		(def max_size 0)
+		(doseq [shape (range (count args))]
+					(def max_size (max max_size (count (nth args shape)))))
+		(def final_array (vec (repeat max_size (vec (repeat max_size " ")))))
+
+		(doseq [each (range (count args))]
+				(def array  (nth args each))
+				(doseq [row (range (count array))
+											col (range (count array))]
+						(if (or (= (get (get final_array row) col) "#")
+														(= (get (get array row) col) "#")
+											)
+											(def final_array (assoc final_array row (assoc (get final_array row) col "#")))
+											(def final_array (assoc final_array row (assoc (get final_array row) col " ")))  
+							)))
+		 final_array
+)
+
 (defn render
 			[final_array]
 			(doseq [row (range 0 (inc (- (count final_array) 1)))]
