@@ -49,8 +49,8 @@
 										  				        (= col (+ mid (- (- width 1) row))))
 										  				  (def diamond_array (assoc diamond_array row (assoc (get diamond_array row) col "#")))
 										  				))
-  		)
-  diamond_array
+  	)
+ 		diamond_array
 )
 
 (defn triangle
