@@ -4,19 +4,34 @@
 
 (defn square
   [side]
-  (def square_array (vec (repeat side (vec (repeat side " ")))))
   
-  (doseq [row (range 0 (inc (- side 1)))
-          col (range 0 (inc (- side 1)))]
-    (if (or (= row 0)
-            (= row (- side 1))
-            (= col 0)
-            (= col (- side 1)))
-      (def square_array (assoc square_array row (assoc (get square_array row) col "#")))
-      )
-    )
-  square_array
- )
+  (loop [x-cord 0]
+    (when (< x-cord side)
+      (loop [y-cord 0]
+        (when (< y-cord side)
+          (if (or (= x-cord 0)
+            (= x-cord (- side 1))
+            (= y-cord 0)
+            (= y-cord (- side 1)))
+            (print "*")
+            (print " ")
+		  )
+          (recur (inc y-cord))
+          ))
+      (println "")
+      (recur (inc x-cord))))
+;;   (def square_array (vec (repeat side (vec (repeat side " ")))))
+  
+;;   (doseq [row (range 0 (inc (- side 1)))
+;;           col (range 0 (inc (- side 1)))]
+    ;; (if (or (= row 0)
+    ;;         (= row (- side 1))
+    ;;         (= col 0)
+    ;;         (= col (- side 1)))
+;;       (def square_array (assoc square_array row (assoc (get square_array row) col "#")))
+;;       )
+;;     )
+  )
 
 (defn diamond
 		[width]
