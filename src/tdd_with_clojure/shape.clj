@@ -24,38 +24,57 @@
 
 (defn diamond
 		[width]
-		(def diamond_array (vec (repeat width (vec (repeat width " ")))))
-  (def mid (quot width 2))
-  (if (= (rem width 2) 1)
-  					(doseq [row (range 0 (inc mid))
-					    						col (range 0 (inc (- width 1)))]
-					    							(if (or (= col (- mid row))
-					    															(= col (+ mid row)))
-					    		 									(def diamond_array (assoc diamond_array row (assoc (get diamond_array row) col "#")))
-					    		 					))
-  					(doseq [row (range 0 (inc (- mid 1)))
-    											col (range 0 (inc (- width 1)))]
-    												(if (or (= col (- mid row 1))
-    																				(= col (+ mid row)))
-    		 													(def diamond_array (assoc diamond_array row (assoc (get diamond_array row) col "#")))
-    		 										))
-   )
-   (if (= (rem width 2) 1)
-   				(doseq [row (range (+ mid 1) (inc (- width 1)))
-					  								col (range 0 (inc (- width 1)))]
-										  				(if (or (= col (- mid (- (- width 1) row)))
-										  				        (= col (+ mid (- (- width 1) row))))
-										  				  (def diamond_array (assoc diamond_array row (assoc (get diamond_array row) col "#")))
-										  				))
-   				(doseq [row (range mid  (inc (- width 1)))
-					  								col (range 0 (inc (- width 1)))]
-										  				(if (or (= col (- mid (- (- width 1) row) 1))
-										  				        (= col (+ mid (- (- width 1) row))))
-										  				  (def diamond_array (assoc diamond_array row (assoc (get diamond_array row) col "#")))
-										  				))
-  	)
- 		diamond_array
-)
+  (let [mid (quot width 2)]
+    (if (= (rem width 2) 1)
+      (loop [x-cord 0]
+        (when (< x-cord (inc mid))
+          (loop [y-cord 0]
+            (when (< y-cord width)
+              (if (or (= y-cord (- mid x-cord))
+                      (= y-cord (+ mid x-cord)))
+                (print "*")
+                (print " "))
+              (recur (inc y-cord))))
+          (println "")
+          (recur (inc x-cord))))
+
+      (loop [x-cord 0]
+        (when (< x-cord (inc mid))
+          (loop [y-cord 0]
+            (when (< y-cord width)
+              (if (or (= y-cord (- mid x-cord 1))
+                      (= y-cord (+ mid x-cord)))
+                (print "*")
+                (print " "))
+              (recur (inc y-cord))))
+          (println "")
+          (recur (inc x-cord)))))
+
+    (if (= (rem width 2) 1)
+      (loop [x-cord mid]
+        (when (< x-cord width)
+          (loop [y-cord 0]
+            (when (< y-cord width)
+              (if (or (= y-cord (- mid (- (- width 1) x-cord)))
+                      (= y-cord (+ mid (- (- width 1) x-cord))))
+                (print "*")
+                (print " "))
+              (recur (inc y-cord))))
+          (println "")
+          (recur (inc x-cord))))
+
+      (loop [x-cord mid]
+        (when (< x-cord (inc mid))
+          (loop [y-cord 0]
+            (when (< y-cord width)
+              (if (or (= y-cord (- mid (- (- width 1) x-cord) 1))
+                      (= y-cord (+ mid (- (- width 1) x-cord))))
+                (print "*")
+                (print " "))
+              (recur (inc y-cord))))
+          (println "")
+          (recur (inc x-cord))))))
+  )
 
 (defn triangle
   [side]
