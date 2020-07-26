@@ -2,25 +2,26 @@
   (:require [clojure.string :as strings])
   (:gen-class))
 
+(defn generate-square
+  [x-cord y-cord side square_array]
+  (let [x (concat [] (if (<= x-cord side)
+                       (if (= y-cord side)
+                         ["#"]
+                         (let [temp_array
+                               (if (or (= x-cord 0)
+                                       (= x-cord side)
+                                       (= y-cord 0))
+                                 (concat ["#"] (generate-square x-cord (inc y-cord) side square_array))
+                                 (concat [" "] (generate-square x-cord (inc y-cord) side square_array)))]
+                           (if (= (count temp_array) (+ side 1))
+                             (generate-square (inc x-cord) 0 side (concat square_array temp_array))
+                             temp_array)))
+                       square_array))] x))
+
 (defn square
   [side]
-  
-  (loop [x-cord 0]
-    (when (< x-cord side)
-      (loop [y-cord 0]
-        (when (< y-cord side)
-          (if (or (= x-cord 0)
-            (= x-cord (- side 1))
-            (= y-cord 0)
-            (= y-cord (- side 1)))
-            (print "*")
-            (print " ")
-		  )
-          (recur (inc y-cord))
-          ))
-      (println "")
-      (recur (inc x-cord))))
-  )
+  (generate-square 0 0 (- side 1) []))
+
 
 (defn diamond
 		[width]
@@ -76,22 +77,29 @@
           (recur (inc x-cord))))))
   )
 
+
+(defn generate-triangle
+  [x-cord y-cord side triangle_array]
+  (let [x (concat [] (if (<= x-cord side)
+                       (if (= y-cord side)
+                         (if (= x-cord side)
+                           ["#"]
+                           [" "])
+                         (let [temp_array
+                               (if (or (= x-cord y-cord)
+                                       (= x-cord side)
+                                       (= y-cord 0))
+                                 (concat ["#"] (generate-triangle x-cord (inc y-cord) side triangle_array))
+                                 (concat [" "] (generate-triangle x-cord (inc y-cord) side triangle_array)))]
+                           (if (= (count temp_array) (+ side 1))
+                             (generate-triangle (inc x-cord) 0 side (concat triangle_array temp_array))
+                             temp_array)))
+                       triangle_array))] x))
+
 (defn triangle
   [side]
-  
-  (loop [x-cord 0]
-    (when (< x-cord side)
-      (loop [y-cord 0]
-        (when (< y-cord side)
-          (if (or (= x-cord y-cord)
-                  (= x-cord (- side 1))
-                  (= y-cord 0))
-            (print "*")
-            (print " "))
-          (recur (inc y-cord))))
-      (println "")
-      (recur (inc x-cord))))
-  )
+  (generate-triangle 0 0 (- side 1) []))
+
 
 (defn combine
 		[& args]
@@ -112,6 +120,14 @@
 							)))
 		 final_array
 )
+
+(defn print-array
+  [array, width]
+  
+  (doseq [[index character] (map-indexed vector array)]
+    (if (= (mod (+ index 1) width) 0)
+      (println character)
+      (print character))))
 
 (defn render
 			[final_array]
