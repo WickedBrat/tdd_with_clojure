@@ -37,7 +37,7 @@
           (recur (inc x-cord))))
 
       (loop [x-cord 0]
-        (when (< x-cord (inc mid))
+        (when (< x-cord (inc (- mid 1)))
           (loop [y-cord 0]
             (when (< y-cord width)
               (if (or (= y-cord (- mid x-cord 1))
@@ -49,7 +49,7 @@
           (recur (inc x-cord)))))
 
     (if (= (rem width 2) 1)
-      (loop [x-cord mid]
+      (loop [x-cord (+ mid 1)]
         (when (< x-cord width)
           (loop [y-cord 0]
             (when (< y-cord width)
@@ -62,9 +62,10 @@
           (recur (inc x-cord))))
 
       (loop [x-cord mid]
-        (when (< x-cord (inc mid))
+        (when (< x-cord  width)
           (loop [y-cord 0]
             (when (< y-cord width)
+            		; (print x-cord y-cord)
               (if (or (= y-cord (- mid (- (- width 1) x-cord) 1))
                       (= y-cord (+ mid (- (- width 1) x-cord))))
                 (print "*")
