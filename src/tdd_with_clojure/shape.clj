@@ -21,58 +21,41 @@
 
 
 (defn diamond
-  [width]
-  (let [mid (quot width 2)]
-    (if (= (rem width 2) 1)
-      (loop [x-cord 0]
-        (when (< x-cord (inc mid))
-          (loop [y-cord 0]
-            (when (< y-cord width)
-              (if (or (= y-cord (- mid x-cord))
-                      (= y-cord (+ mid x-cord)))
-                (print "*")
-                (print " "))
-              (recur (inc y-cord))))
-          (println "")
-          (recur (inc x-cord))))
+   ([width] (diamond 0 0 (quot width 2) width []))
+   ([x-cord y-cord mid width diamond_array]
+    (let [x (concat [] (if (= (rem width 2) 1)
+                           (if (<= x-cord mid)
+                               (if (< y-cord width)
+                                   (if (or (= y-cord (- mid x-cord))
+                                           (= y-cord (+ mid x-cord)))
+                                       (concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
+                                       (concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
+                                (diamond (inc x-cord) 0 mid width diamond_array))
+                               (if (< x-cord width)
+                                   (if (< y-cord width)
+                                       (if (or (= y-cord (- mid (- (- width 1) x-cord)))
+                                               (= y-cord (+ mid (- (- width 1) x-cord))))
+                                           (concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
+                                           (concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
+                                 (diamond (inc x-cord) 0 mid width diamond_array))
+                                 diamond_array))
 
-      (loop [x-cord 0]
-        (when (< x-cord (inc (- mid 1)))
-          (loop [y-cord 0]
-            (when (< y-cord width)
-              (if (or (= y-cord (- mid x-cord 1))
-                      (= y-cord (+ mid x-cord)))
-                (print "*")
-                (print " "))
-              (recur (inc y-cord))))
-          (println "")
-          (recur (inc x-cord)))))
 
-    (if (= (rem width 2) 1)
-      (loop [x-cord (+ mid 1)]
-        (when (< x-cord width)
-          (loop [y-cord 0]
-            (when (< y-cord width)
-              (if (or (= y-cord (- mid (- (- width 1) x-cord)))
-                      (= y-cord (+ mid (- (- width 1) x-cord))))
-                (print "*")
-                (print " "))
-              (recur (inc y-cord))))
-          (println "")
-          (recur (inc x-cord))))
-
-      (loop [x-cord mid]
-        (when (< x-cord  width)
-          (loop [y-cord 0]
-            (when (< y-cord width)
-            		; (print x-cord y-cord)
-              (if (or (= y-cord (- mid (- (- width 1) x-cord) 1))
-                      (= y-cord (+ mid (- (- width 1) x-cord))))
-                (print "*")
-                (print " "))
-              (recur (inc y-cord))))
-          (println "")
-          (recur (inc x-cord)))))))
+                           (if (< x-cord mid)
+                               (if (< y-cord width)
+                                   (if (or (= y-cord (- mid x-cord 1))
+                                           (= y-cord (+ mid x-cord)))
+                                       (concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
+                                       (concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
+                                (diamond (inc x-cord) 0 mid width diamond_array))
+                               (if (< x-cord width)
+                                   (if (< y-cord width)
+                                       (if (or (= y-cord (- mid (- (- width 1) x-cord) 1))
+                                               (= y-cord (+ mid (- (- width 1) x-cord))))
+                                           (concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
+                                           (concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
+                                 (diamond (inc x-cord) 0 mid width diamond_array))
+                                 diamond_array))))] x ))) 
 
 
 (defn triangle
@@ -119,8 +102,8 @@
       (print character))))
 
 (defn render
-			[final_array]
-			(doseq [row (range 0 (inc (- (count final_array) 1)))]
+   [final_array]
+   (doseq [row (range 0 (inc (- (count final_array) 1)))]
       (println (strings/join "" (get final_array row))))
 )
 
