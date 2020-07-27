@@ -21,41 +21,41 @@
 
 
 (defn diamond
-			([width] (diamond 0 0 (quot width 2) width []))
-			([x-cord y-cord mid width diamond_array]
-				(let [x (concat [] (if (= (rem width 2) 1)
-																											(if (<= x-cord mid)
-																															(if	(< y-cord width)
- 																																		(if (or (= y-cord (- mid x-cord))
-					    																																		(= y-cord (+ mid x-cord)))
- 																																						(concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
- 																																						(concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
- 																														 (diamond (inc x-cord) 0 mid width diamond_array))
-																															(if (< x-cord width)
-																																			(if (< y-cord width)
-																																							(if (or (= y-cord (- mid (- (- width 1) x-cord)))
-										  				        																							(= y-cord (+ mid (- (- width 1) x-cord))))
-																																											(concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
- 																																										(concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
-																																	(diamond (inc x-cord) 0 mid width diamond_array))
-																																	diamond_array))
+   ([width] (diamond 0 0 (quot width 2) width []))
+   ([x-cord y-cord mid width diamond_array]
+    (let [x (concat [] (if (= (rem width 2) 1)
+                           (if (<= x-cord mid)
+                               (if (< y-cord width)
+                                   (if (or (= y-cord (- mid x-cord))
+                                           (= y-cord (+ mid x-cord)))
+                                       (concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
+                                       (concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
+                                (diamond (inc x-cord) 0 mid width diamond_array))
+                               (if (< x-cord width)
+                                   (if (< y-cord width)
+                                       (if (or (= y-cord (- mid (- (- width 1) x-cord)))
+                                               (= y-cord (+ mid (- (- width 1) x-cord))))
+                                           (concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
+                                           (concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
+                                 (diamond (inc x-cord) 0 mid width diamond_array))
+                                 diamond_array))
 
 
-																											(if (< x-cord mid)
-																															(if	(< y-cord width)
- 																																		(if (or (= y-cord (- mid x-cord 1))
-					    																																		(= y-cord (+ mid x-cord)))
- 																																						(concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
- 																																						(concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
- 																														 (diamond (inc x-cord) 0 mid width diamond_array))
-																															(if (< x-cord width)
-																																			(if (< y-cord width)
-																																							(if (or (= y-cord (- mid (- (- width 1) x-cord) 1))
-										  				        																							(= y-cord (+ mid (- (- width 1) x-cord))))
-																																											(concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
- 																																										(concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
-																																	(diamond (inc x-cord) 0 mid width diamond_array))
-																																	diamond_array))))] x ))) 
+                           (if (< x-cord mid)
+                               (if (< y-cord width)
+                                   (if (or (= y-cord (- mid x-cord 1))
+                                           (= y-cord (+ mid x-cord)))
+                                       (concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
+                                       (concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
+                                (diamond (inc x-cord) 0 mid width diamond_array))
+                               (if (< x-cord width)
+                                   (if (< y-cord width)
+                                       (if (or (= y-cord (- mid (- (- width 1) x-cord) 1))
+                                               (= y-cord (+ mid (- (- width 1) x-cord))))
+                                           (concat ["#"] (diamond x-cord (inc y-cord) mid width diamond_array))
+                                           (concat [" "] (diamond x-cord (inc y-cord) mid width diamond_array )))
+                                 (diamond (inc x-cord) 0 mid width diamond_array))
+                                 diamond_array))))] x ))) 
 
 
 (defn triangle
@@ -79,23 +79,23 @@
 )
 
 (defn combine
-		[& args]
-		(def max_size 0)
-		(doseq [shape (range (count args))]
-					(def max_size (max max_size (count (nth args shape)))))
-		(def final_array (vec (repeat max_size (vec (repeat max_size " ")))))
+  [& args]
+  (def max_size 0)
+  (doseq [shape (range (count args))]
+     (def max_size (max max_size (count (nth args shape)))))
+  (def final_array (vec (repeat max_size (vec (repeat max_size " ")))))
 
-		(doseq [each (range (count args))]
-				(def array  (nth args each))
-				(doseq [row (range (count array))
-											col (range (count array))]
-						(if (or (= (get (get final_array row) col) "#")
-														(= (get (get array row) col) "#")
-											)
-											(def final_array (assoc final_array row (assoc (get final_array row) col "#")))
-											(def final_array (assoc final_array row (assoc (get final_array row) col " ")))  
-							)))
-		 final_array
+  (doseq [each (range (count args))]
+    (def array  (nth args each))
+    (doseq [row (range (count array))
+           col (range (count array))]
+      (if (or (= (get (get final_array row) col) "#")
+              (= (get (get array row) col) "#")
+           )
+           (def final_array (assoc final_array row (assoc (get final_array row) col "#")))
+           (def final_array (assoc final_array row (assoc (get final_array row) col " ")))  
+       )))
+   final_array
 )
 
 (defn print-array
@@ -107,8 +107,8 @@
       (print character))))
 
 (defn render
-			[final_array]
-			(doseq [row (range 0 (inc (- (count final_array) 1)))]
+   [final_array]
+   (doseq [row (range 0 (inc (- (count final_array) 1)))]
       (println (strings/join "" (get final_array row))))
 )
 
